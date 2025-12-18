@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Event Scheduler</title>
+
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- ================= HEADER / NAVBAR ================= -->
+<header class="app-header">
+  <div class="header-container">
+
+    <!-- LEFT : HOME LOGO -->
+    <div class="brand-title">
+      <a href="{{ url_for('home') }}" class="brand-link">
+        🏠 <span>Event Scheduler</span>
+      </a>
+    </div>
+
+    <!-- CENTER : NAV LINKS (ONLY WHEN LOGGED IN) -->
+    {% if g.user %}
+    <nav class="nav-menu">
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('list_events') }}">Events</a>
+      <a href="{{ url_for('list_resources') }}">Resources</a>
+      <a href="{{ url_for('list_allocations') }}">Allocations</a>
+      <a href="{{ url_for('conflicts') }}">Conflicts</a>
+      <a href="{{ url_for('report') }}">Report</a>
+    </nav>
+    {% endif %}
+
+    <!-- RIGHT : AUTH BUTTONS -->
+    <div class="nav-actions">
+      {% if g.user %}
+        <a href="{{ url_for('logout') }}" class="btn-outline">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn-outline">Login</a>
+        <a href="{{ url_for('signup') }}" class="btn-primary">Sign Up</a>
+      {% endif %}
+    </div>
+
+  </div>
+</header>
+<!-- ================= END HEADER ================= -->
+
+
+<!-- ================= PAGE CONTENT ================= -->
+<main class="page-content">
+  {% block content %}{% endblock %}
+</main>
+<!-- ================= END PAGE CONTENT ================= -->
+
+</body>
+</html>

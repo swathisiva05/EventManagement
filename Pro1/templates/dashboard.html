@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="dashboard-container">
+
+  <!-- Page Title -->
+  <h2 class="page-title">Dashboard</h2>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>{{ total_events }}</h3>
+      <p>Total Events</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>{{ total_resources }}</h3>
+      <p>Total Resources</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>{{ total_allocations }}</h3>
+      <p>Allocations</p>
+    </div>
+  </div>
+
+  <!-- Upcoming Events -->
+  <h3 class="section-title">Upcoming Events</h3>
+
+  <div class="card">
+    {% if upcoming_events %}
+      {% for event in upcoming_events %}
+        <div class="upcoming-event">
+          <div class="upcoming-title">
+            {{ event.title }}
+          </div>
+          <div class="upcoming-time muted">
+            {{ event.start_time.strftime('%d %b %Y · %H:%M') }}
+          </div>
+        </div>
+        {% if not loop.last %}
+          <hr>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p class="muted center">No upcoming events</p>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

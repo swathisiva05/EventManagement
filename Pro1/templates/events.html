@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="events-header">
+  <h2 class="events-title">Events</h2>
+
+  <a href="{{ url_for('upsert_event') }}" class="btn-primary add-event-btn">
+    + Add Event
+  </a>
+</div>
+
+
+  <!-- Friendly Welcome Section -->
+  {% if not events %}
+  <div class="card" style="margin-bottom: 20px;">
+    <h3>Welcome to Event Scheduler 👋</h3>
+    <p class="muted">
+      Start by creating your first event.  
+      After that, you can allocate resources and automatically detect conflicts.
+    </p>   
+  </div>
+  {% endif %}
+
+  <!-- Events Table -->
+  <div class="table-card">
+    {% if events %}
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Schedule</th>
+          <th>Description</th>
+          <th class="center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td><strong>{{ event.title }}</strong></td>
+
+          <td>
+            {{ event.start_time.strftime('%d %b %Y, %H:%M') }} <br>
+            <span class="muted">to</span><br>
+            {{ event.end_time.strftime('%d %b %Y, %H:%M') }}
+          </td>
+
+          <td class="muted">
+            {{ event.description or "—" }}
+          </td>
+
+          <td class="center">
+            <a href="{{ url_for('upsert_event', event_id=event.event_id) }}"
+               class="btn-outline small">Edit</a>
+
+            <form method="post"
+                  action="{{ url_for('delete_event', event_id=event.event_id) }}"
+                  class="inline-form">
+              <button class="btn-danger small"
+                      onclick="return confirm('Delete this event?')">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="empty-state">
+        No events created yet.
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

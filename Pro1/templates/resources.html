@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="manage-page">
+
+  <div class="manage-header">
+    <h2>Resources</h2>
+    <a href="{{ url_for('upsert_resource') }}" class="btn-primary">
+      + Add Resource
+    </a>
+  </div>
+
+  <div class="manage-card">
+    {% if resources %}
+    <table class="manage-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in resources %}
+        <tr>
+          <td>{{ r.resource_name }}</td>
+          <td>{{ r.resource_type }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="manage-empty">No resources yet.</div>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

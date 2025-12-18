@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="conflict-center-wrapper">
+
+  <h2 class="conflict-title">Conflict Detection</h2>
+
+  <div class="conflict-card">
+    {% if conflicts %}
+      <ul class="conflict-list">
+        {% for conflict in conflicts %}
+          <li class="conflict-item">
+            ⚠️ {{ conflict }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="no-conflict">
+        ✅ No conflicts detected
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}
